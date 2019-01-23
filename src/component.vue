@@ -1,13 +1,11 @@
 <template lang="html">
   <input type="tel"
          :value="formattedValue"
-         @change="change"
-<<<<<<< HEAD
-         v-money="{precision, decimal, thousands, prefix, suffix, allowBlank}"
-=======
          @blur="blur"
+         @change="change"
+         v-money="{precision, decimal, thousands, prefix, suffix, allowBlank}"
+         v-on="listeners"
          v-money="{precision, decimal, thousands, prefix, suffix}"
->>>>>>> 37
          class="v-money" />
 </template>
 
@@ -62,6 +60,15 @@ export default {
     }
   },
 
+  computed: {
+    listeners: {
+      return {
+        ...this.$listeners,
+        change: this.change
+      }
+    }
+  },
+
   watch: {
     value: {
       immediate: true,
@@ -77,9 +84,9 @@ export default {
   methods: {
     change (evt) {
       this.$emit('input', this.masked ? evt.target.value : unformat(evt.target.value, this.precision))
-+   },
-+   blur (evt) {
-+     this.$emit('blur', evt)
+  },
+  blur (evt) {
+    this.$emit('blur', evt)
     }
   }
 }
